@@ -7,7 +7,7 @@ else()
   set(PATCH_VERSION 0)
 endif()
 
-project(helloworld VERSION 1.0.PATCH_VERSION)
+project(helloworld VERSION 1.0.${PATCH_VERSION})
 
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
@@ -22,12 +22,14 @@ add_executable(helloworld_test_main test_main.cpp)
 
 # Настройка целей
 add_compile_options(-Wpedantic -Wall -Wextra)     # для всех целей
+set_target_properties(helloworld_app helloworld_test_main PROPERTIES
+   CXX_STANDARD 14
+   CXX_STANDARD_REQUIRED ON
+ )
 
-target_compile_features(helloworld_app cxx_std_14)
 target_link_libraries(helloworld_app helloworld_lib)
 
 target_include_directories(helloworld_test_main ${Boost_INCLUDE_DIR})
-target_compile_features(helloworld_test_main cxx_std_14)
 target_compile_definitions(helloworld_test_main BOOST_TEST_DYN_LINK)
 target_link_libraries(helloworld_test_main 
   ${Boost_LIBRARIES}
