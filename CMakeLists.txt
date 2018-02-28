@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.2)
 
 # Определение PATCH_VERSION для локальной сборки и сборки на travis
+set(PATCH_VERSION 1)
 if($ENV{TRAVIS_BUILD_NUMBER})
   set(PATCH_VERSION $ENV{TRAVIS_BUILD_NUMBER})
-else()
-  set(PATCH_VERSION 0)
 endif()
 
 project(helloworld VERSION 1.0.${PATCH_VERSION})
@@ -21,16 +20,16 @@ add_library(helloworld_lib STATIC lib.cpp)
 add_executable(helloworld_test_main test_main.cpp)
 
 # Настройка целей
-add_compile_options(-Wpedantic -Wall -Wextra)     # для всех целей
-set_target_properties(helloworld_app helloworld_test_main PROPERTIES
-   CXX_STANDARD 14
-   CXX_STANDARD_REQUIRED ON
- )
+
+# для всех целей
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+add_compile_options(-Wpedantic -Wall -Wextra)
 
 target_link_libraries(helloworld_app helloworld_lib)
 
-target_include_directories(helloworld_test_main ${Boost_INCLUDE_DIR})
-target_compile_definitions(helloworld_test_main BOOST_TEST_DYN_LINK)
+target_include_directories(helloworld_test_main PRIVATE ${Boost_INCLUDE_DIR})
+target_compile_definitions(helloworld_test_main PRIVATE BOOST_TEST_DYN_LINK)
 target_link_libraries(helloworld_test_main 
   ${Boost_LIBRARIES}
   helloworld_lib
