@@ -9,11 +9,11 @@ struct version_info{
   version_info(const int major,
                const int minor,
                const int patch)
-    : major(major), minor(minor), patch(patch) {}
+    : _major(major), _minor(minor), _patch(patch) {}
 
-  int major;
-  int minor;
-  int patch;
+  int _major;
+  int _minor;
+  int _patch;
 };
 
 bool operator==(const version_info& lhs, const version_info& rhs);

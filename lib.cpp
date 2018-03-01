@@ -1,9 +1,9 @@
 #include "lib.h"
 
 bool operator==(const version_info& lhs, const version_info& rhs) {
-  if ((lhs.major == rhs.major)
-    && (lhs.minor == rhs.minor)
-    && (lhs.patch == rhs.patch))
+  if ((lhs._major == rhs._major)
+    && (lhs._minor == rhs._minor)
+    && (lhs._patch == rhs._patch))
     return true;
   return false;
 }
@@ -13,11 +13,11 @@ bool operator!=(const version_info& lhs, const version_info& rhs) {
 }
 
 bool operator<(const version_info& lhs, const version_info& rhs) {
-  if (lhs.major < rhs.major)
+  if (lhs._major < rhs._major)
     return true;
-  if (lhs.minor < rhs.minor)
+  if (lhs._minor < rhs._minor)
     return true;
-  if (lhs.patch < rhs.patch)
+  if (lhs._patch < rhs._patch)
     return true;
   return false;
 }
@@ -35,7 +35,7 @@ bool operator>=(const version_info& lhs, const version_info& rhs) {
 }
 
 std::ostream& operator<<(std::ostream& out, const version_info& out_version) {
-  return out << out_version.major << '.' << out_version.minor << '.' << out_version.patch;
+  return out << out_version._major << '.' << out_version._minor << '.' << out_version._patch;
 }
 
 version_info version()
