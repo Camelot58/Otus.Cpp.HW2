@@ -28,10 +28,9 @@ add_compile_options(-Wpedantic -Wall -Wextra)
 
 target_link_libraries(helloworld_app helloworld_lib)
 
-target_include_directories(helloworld_test_main PRIVATE ${Boost_INCLUDE_DIR})
 target_compile_definitions(helloworld_test_main PRIVATE BOOST_TEST_DYN_LINK)
 target_link_libraries(helloworld_test_main 
-  ${Boost_LIBRARIES}
+  Boost::unit_test_framework
   helloworld_lib
 )
 
